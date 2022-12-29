@@ -10,7 +10,7 @@ In this challenge, I am helping Jeremy and the data analytics team do the follow
 - Run t-tests to determine if the manufacturing lots are statistically different from the mean population.
 - Design a statistical study to compare vehicle performance of the MechaCar vehicles against vehicles from other manufacturers. For each statistical analysis, I am to  write a summary interpretation of the findings.
 
-# Deliverable 1;
+# Deliverable 1:
 ## Linear Regression to Predict MPG
 ### Results
 
@@ -26,3 +26,105 @@ In this challenge, I am helping Jeremy and the data analytics team do the follow
 
 - The regression model's r squared value  of 0.7149. Thia indicates approximately 71% of all MPG predictions will be determined by this model.
 
+
+# Deliverable 2:
+## Summary Statistics on Suspension Coils
+### Overview
+The MechaCar Suspension_Coil.csv dataset contains the results from multiple production lots. In this dataset, the weight capacities of multiple suspension coils were tested to determine if the manufacturing process is consistent across production lots. Using your knowledge of R, you’ll create a summary statistics table to show:
+
+- The suspension coil’s PSI continuous variable across all manufacturing lots.
+
+- The following PSI metrics for each lot: mean, median, variance, and standard deviation.
+
+### Results
+
+### Total Summary
+
+![image](https://github.com/ras52017/MechaCar_Statistical_Analysis/blob/main/Images/total_summary.jpg)
+
+### Lot Summary
+
+![image](https://github.com/ras52017/MechaCar_Statistical_Analysis/blob/main/Images/lot_summary.jpg)
+
+
+### Summary
+
+- The whole population dataset of the production lot shows a variance of the coils as 62.3 PSI and this is within the 100 PSI variace requirement.
+- Lot 1 and 2 also show a variance of approximately 1 and 7.5 PSI respectively. These lots are within the 100 PSI  variance requirement. However, Lot 3 shows a larger variance of 170.29 which is greater than the PSI requirement.
+
+![image](https://github.com/ras52017/MechaCar_Statistical_Analysis/blob/main/Images/PSI%20each%20indicdiual%20Lot.jpg)
+
+
+# Deliverable 3:
+## T-Tests on Suspension Coils
+### Overview
+
+Using your knowledge of R, perform t-tests to determine if all manufacturing lots and each lot individually are statistically different from the population mean of 1,500 pounds per square inch.
+
+Follow the instructions below to complete Part 3.
+
+Technical Analysis
+- In your MechaCarChallenge.RScript, write an RScript using the t.test() function to determine if the PSI across all manufacturing lots is statistically different from the population mean of 1,500 pounds per square inch.
+
+- Next, write three more RScripts in your MechaCarChallenge.RScript using the t.test() function and its subset() argument to determine if the PSI for each manufacturing lot is statistically different from the population mean of 1,500 pounds per square inch.
+- 
+    - An RScript is written for t-test that compares all manufacturing lots against mean PSI of the population
+    - An RScript is written for three t-test that compares each manufacturing lots against mean PSI of the population
+    - There is a summary of the t-test results across all manufacturing lots and for each lot
+    
+The next step is to conduct a t-test on the suspension coil data to determine whether there is a statistical difference between the mean of this provided sample dataset and a hypothesized, potential population dataset. Using the presumed population mean of 1500, we find the following:
+
+ 
+> t.test(lot1$PSI,mu=1500)
+
+	One Sample t-test
+
+data:  lot1$PSI
+t = 0, df = 49, p-value = 1
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.719 1500.281
+sample estimates:
+mean of x 
+     1500 
+
+> t.test(lot2$PSI,mu=1500)
+
+	One Sample t-test
+
+data:  lot2$PSI
+t = 0.51745, df = 49, p-value = 0.6072
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.423 1500.977
+sample estimates:
+mean of x 
+   1500.2 
+
+> t.test(lot3$PSI,mu=1500)
+
+	One Sample t-test
+
+data:  lot3$PSI
+t = -2.0916, df = 49, p-value = 0.04168
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1492.431 1499.849
+sample estimates:
+mean of x 
+  1496.14 
+
+### Summary
+
+#### One Sample t-test
+From the one sample t-test above, the true mean of the sample was 1498.78. It showed a p-Value of 0.06, higher than the common significance level of 0.05. There is NOT sufficient evidence to support rejecting the null hypothesis. This implies the mean of all three of these manufacturing lots is statistically comparable or similar to the presumed population mean of 1500.
+
+#### Lot 1 t-test
+Lot 1 generated a true sample mean of 1500. With a p-Value of 1, the null hypothesis cannot be rejected. There is no statistical difference between the observed sample mean and the presumed population mean (1500).
+
+#### Lot 2 t-test
+Lot 2 is similar to Lot1. True sample mean of 1500.02 and a p-Value of 0.61. The null hypothesis cannot be rejected. Both the sample mean and the population mean of 1500 are statistically similar.
+
+#### Lot 3 t-test
+A sample mean of 1496.14 with a p-Value of 0.04. The p-Value is lower than the common significance level of 0.05. The null hypothesis must be rejected implying this sample mean and the presumed population mean are not statistically different. Lot 3 obviously had an abnormal situation in the manufacturing/production process that accounted for the results obtained.
+    
