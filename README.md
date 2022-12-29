@@ -13,4 +13,4 @@ In this challenge, I am helping Jeremy and the data analytics team do the follow
 #Deliverable 1;
 ##Linear Regression to Predict MPG
 
-![image](https://github.com/ras52017/MechaCar_Statistical_Analysis/tree/main/Images)
+![image](https://github.com/ras52017/MechaCar_Statistical_Analysis/blob/main/Images/linear%20regression%20model..jpg)
