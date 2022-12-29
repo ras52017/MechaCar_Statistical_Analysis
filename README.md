@@ -122,9 +122,59 @@ From the one sample t-test above, the true mean of the sample was 1498.78. It sh
 #### Lot 1 t-test
 Lot 1 generated a true sample mean of 1500. With a p-Value of 1, the null hypothesis cannot be rejected. There is no statistical difference between the observed sample mean and the presumed population mean (1500).
 
-#### Lot 2 t-test
-Lot 2 is similar to Lot1. True sample mean of 1500.02 and a p-Value of 0.61. The null hypothesis cannot be rejected. Both the sample mean and the population mean of 1500 are statistically similar.
-
-#### Lot 3 t-test
 A sample mean of 1496.14 with a p-Value of 0.04. The p-Value is lower than the common significance level of 0.05. The null hypothesis must be rejected implying this sample mean and the presumed population mean are not statistically different. Lot 3 obviously had an abnormal situation in the manufacturing/production process that accounted for the results obtained.
+
+
+# Deliverable 4:
+## Study Design: MechaCar vs Competition
+### Overview
+
+#### Using your knowledge of R, design a statistical study to compare performance of the MechaCar vehicles against performance of vehicles from other manufacturers.
+
+• A statistical test to test the hypothesis
+• A metric to be tested 
+• A null hypothesis or an alternative hypothesis 
+
+
+### Results
+
+#### Statistical Tests
+A multiple linear regression. This can establish the factors that have the highest correlation/predictability with the list selling price (dependent variable); which combination has the greatest impact on price.
+
+##### Data needed to run the statistical test will be:
+##### Data on MechaCar and its comparable models across several different manufacturers over the last 3 years. Data will include:
+• Comparable models from competitors.
+
+• Cars that will be competing with MechaCar head-to-head.
+
+• Factors that will determine the relevant selling price.
+
+#### Metrics
+The following metrics will be tested:
+• Safety Feature Rating: Independent Variable
+
+• MPG (Gasoline Efficiency): Independent Variable
+
+• Current Price (Selling): Dependent Variable 
+
+• Engine (Electric, Hybrid, Gasoline / Conventional): Independent Variable
+
+• Drive Package : Independent Variable 
+
+• Resale Value: Independent Variable 
+
+• Average Annual Cost of ownership (Maintenance): Independent Variable 
+
+
+#### Hypothesis: Null and Alternative
+After determining which factors are key for the MechaCar's genre:
+
+• Alternative Hypothesis: MechaCar is NOT priced correctly based on performance of key factors for its genre.
+
+• Null Hypothesis: MechaCar is priced correctly based on its performance of key factors for its genre.
+
+
+
+
+
     
