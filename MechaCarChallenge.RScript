@@ -1,72 +1,171 @@
 ### CHALLENGE 16: DELIVERABLE 1
 
-# 3. Use the library() function to load the dplyr package
+> # 3. Use the library() function to load the dplyr package
+> 
+> library(dplyr)
 
-library(dplyr)
+Attaching package: ‘dplyr’
 
-# Import and read in the MechaCar_mpg.csv file as a dataframe
-library(tidyverse)
+The following objects are masked from ‘package:stats’:
 
+    filter, lag
 
-getwd()
-setwd(""D:/WASHU DATA Analytics/WUSTL-VIRT-DATA-PT-08-2022-U-B-main/16-R/MechaCar_Statistical_Analysis/MechaCar_Statistical_Analysis")
+The following objects are masked from ‘package:base’:
 
-mechaCar_mpg <- read.csv("MechaCar_mpg.csv")
+    intersect, setdiff, setequal, union
 
-# Perform linear regression using the 1m() function
+> dplyr::lag(1:5, 2)        # Applying lag function of dplyr package
+[1] NA NA  1  2  3
+> stats::lag(1:5, 2)        # Applying lag function of stats package
+[1] 1 2 3 4 5
+attr(,"tsp")
+[1] -1  3  1
+> 
+> setwd("D:/WASHU DATA Analytics/WUSTL-VIRT-DATA-PT-08-2022-U-B-main/16-R/MechaCar_Statistical_Analysis/MechaCar_Statistical_Analysis")
+> library(tidyverse)
+── Attaching packages ─────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0     ✔ purrr   0.3.5
+✔ tibble  3.1.8     ✔ stringr 1.5.0
+✔ tidyr   1.2.1     ✔ forcats 0.5.2
+✔ readr   2.1.3     
+── Conflicts ────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+> 
+> mecha_mpg <- read.csv(file='MechaCar_mpg.csv',check.names=F,stringsAsFactors = F)
+> 
+> #5. Perform linear regression using the lm() function
+> lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, data=mecha_mpg)
 
-lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, data=mechaCar_mpg)
+Call:
+lm(formula = mpg ~ vehicle_length + vehicle_weight + spoiler_angle + 
+    ground_clearance + AWD, data = mecha_mpg)
 
-# Using the summary() function, determine the p-value and the r-squared value for the linear regression model.
+Coefficients:
+     (Intercept)    vehicle_length    vehicle_weight     spoiler_angle  ground_clearance               AWD  
+      -1.040e+02         6.267e+00         1.245e-03         6.877e-02         3.546e+00        -3.411e+00  
 
-summary(lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, data=mechaCar_mpg)) 
+> #6. Using the summary() function, determine the p-value and the r-squared value for the linear regression model.
+> summary(lm(mpg ~ vehicle_length + vehicle_weight + spoiler_angle + ground_clearance + AWD, data=mecha_mpg)) 
 
+Call:
+lm(formula = mpg ~ vehicle_length + vehicle_weight + spoiler_angle + 
+    ground_clearance + AWD, data = mecha_mpg)
 
-## DELIVERABLE 2
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.4701  -4.4994  -0.0692   5.4433  18.5849 
 
-# Import and read in the Suspension_Coil.csv file as a table
+Coefficients:
+                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -1.040e+02  1.585e+01  -6.559 5.08e-08 ***
+vehicle_length    6.267e+00  6.553e-01   9.563 2.60e-12 ***
+vehicle_weight    1.245e-03  6.890e-04   1.807   0.0776 .  
+spoiler_angle     6.877e-02  6.653e-02   1.034   0.3069    
+ground_clearance  3.546e+00  5.412e-01   6.551 5.21e-08 ***
+AWD              -3.411e+00  2.535e+00  -1.346   0.1852    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-mechaCar_coil <- read.csv("Suspension_Coil.csv") 
+Residual standard error: 8.774 on 44 degrees of freedom
+Multiple R-squared:  0.7149,	Adjusted R-squared:  0.6825 
+F-statistic: 22.07 on 5 and 44 DF,  p-value: 5.35e-11
 
-# A total_summary dataframe using the summarize() function to get the mean, median, variance, and standard deviation of the suspension coil’s PSI column.
+> 
+> ### CHALLENGE 16: DELIVERABLE 2
+> #2. Import and read in the Suspension_Coil.csv file as a table
+> 
+> mechaCAR_coil <- read.csv(file='Suspension_Coil.csv',check.names=F,stringsAsFactors = F) 
+> #3. Create a total_summary dataframe using the summarize() function to get the mean, median, variance, and standard deviation of the suspension coil’s PSI column.
+> total_summary <- mechaCAR_coil %>% summarize(Mean_PSI=mean(PSI),
++                                           Median_PSI=median(PSI),
++                                           Var_PSI=var(PSI),
++                                           Std_Dev_PSI=sd(PSI),
++                                           Num_Coil=n(), .groups = 'keep') 
+> 
+> #4. Create a lot_summary dataframe using the group_by() and the summarize() functions to group each manufacturing lot.                                                                
+> lot_summary <- mechaCAR_coil  %>% group_by(Manufacturing_Lot) %>% summarize(Mean_PSI=mean(PSI),
++                                                                          Median_PSI=median(PSI),
++                                                                          Var_PSI=var(PSI),
++                                                                          Std_Dev_PSI=sd(PSI),
++                                                                          Num_Coil=n(), .groups = 'keep')   
+> 
+> 
+> #box plot: PSI Whole lot
+> plt1 <- ggplot(mecha_coil,aes(y=PSI)) #import dataset into ggplot2
+Error in ggplot(mecha_coil, aes(y = PSI)) : object 'mecha_coil' not found
+> #box plot: PSI Whole lot
+> plt1 <- ggplot(mechaCAR_coil,aes(y=PSI)) #import dataset into ggplot2
+> plt1 + geom_boxplot() #add boxplot
+> 
+> #box plot: PSI each indicdiual Lot
+> plt2 <- ggplot(mechaCAR_coil,aes(x=Manufacturing_Lot,y=PSI)) #import dataset into ggplot2
+> plt2 + geom_boxplot()
+> 
+> 
+> 
+> ### CHALLENGE 16: DELIVERABLE 3
+> 
+> #1. use t.test() to determine if the PSI across ALL lots is statistically different from the pop. mean of 1,500 PSI.
+> t.test(mecha_coil$PSI,mu=1500)
+Error in t.test(mecha_coil$PSI, mu = 1500) : 
+  object 'mecha_coil' not found
+> #1. use t.test() to determine if the PSI across ALL lots is statistically different from the pop. mean of 1,500 PSI.
+> t.test(mechaCAR_coil$PSI,mu=1500)
 
-total_summary <- mechaCar_coil %>% summarize(Mean_PSI=mean(PSI),
-                                             Median_PSI=median(PSI),
-                                             Var_PSI=var(PSI),
-                                             Std_Dev_PSI=sd(PSI),
-                                             Num_Coil=n(), .groups = 'keep')
+	One Sample t-test
 
-# A lot_summary dataframe using the group_by() and the summarize() functions to group each manufacturing lot. 
+data:  mechaCAR_coil$PSI
+t = -1.8931, df = 149, p-value = 0.06028
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1497.507 1500.053
+sample estimates:
+mean of x 
+  1498.78 
 
-lot_summary <- mechaCar_coil  %>% group_by(Manufacturing_Lot) %>% summarize(Mean_PSI=mean(PSI),
-                                                                            Median_PSI=median(PSI),
-                                                                            Var_PSI=var(PSI),
-                                                                            Std_Dev_PSI=sd(PSI),
-                                                                            Num_Coil=n(), .groups = 'keep')  
+> #2. Use t.test() function 3 more times with subset() to determine if PSI for each manufacturing lot is statistically different from the pop. mean of 1,500 PSI
+> lot1 <- subset(mechaCAR_coil, Manufacturing_Lot=="Lot1")
+> lot2 <- subset(mechaCAR_coil, Manufacturing_Lot=="Lot2")
+> lot3 <- subset(mechaCAR_coil, Manufacturing_Lot=="Lot3")
+> 
+> 
+> t.test(lot1$PSI,mu=1500)
 
-#box plot: PSI Whole lot
-plt1 <- ggplot(mechaCar_coil,aes(y=PSI)) #import dataset into ggplot2
-plt1 + geom_boxplot() #add boxplot
+	One Sample t-test
 
+data:  lot1$PSI
+t = 0, df = 49, p-value = 1
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.719 1500.281
+sample estimates:
+mean of x 
+     1500 
 
-#box plot: PSI each indicdiual Lot
-plt2 <- ggplot(mechaCar_coil,aes(x=Manufacturing_Lot,y=PSI)) #import dataset into ggplot2
-plt2 + geom_boxplot()
+> t.test(lot2$PSI,mu=1500)
 
-## DELIVERABLE 3
-# Use t.test() to determine if the PSI across ALL lots is statistically different from the pop. mean of 1,500 PSI.
+	One Sample t-test
 
-t.test(mechaCar_coil$PSI,mu=1500)
+data:  lot2$PSI
+t = 0.51745, df = 49, p-value = 0.6072
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1499.423 1500.977
+sample estimates:
+mean of x 
+   1500.2 
 
-# Use t.test() function 3 more times with subset() to determine if PSI for each manufacturing lot is statistically different from the pop. mean of 1,500 PSI
+> t.test(lot3$PSI,mu=1500)
 
-lot1 <- subset(mechaCar_coil, Manufacturing_Lot=="Lot1")
-lot2 <- subset(mechaCar_coil, Manufacturing_Lot=="Lot2")
-lot3 <- subset(mechaCar_coil, Manufacturing_Lot=="Lot3")
+	One Sample t-test
 
-
-t.test(lot1$PSI,mu=1500)
-t.test(lot2$PSI,mu=1500)
-t.test(lot3$PSI,mu=1500)
-
+data:  lot3$PSI
+t = -2.0916, df = 49, p-value = 0.04168
+alternative hypothesis: true mean is not equal to 1500
+95 percent confidence interval:
+ 1492.431 1499.849
+sample estimates:
+mean of x 
+  1496.14 
 
